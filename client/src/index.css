@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&family=Outfit:wght@100..900&family=Poppins&display=swap');
+
+@import "tailwindcss";
+*{
+    font-family:Outfit;
+}
+
+
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .card-title {
+    font-weight:bold;
+    font-size: medium; /* Equivalent to Tailwind's text-sm */
+  }
+  
+  .star-icon {
+    width: 14px; /* Equivalent to Tailwind's w-3.5 */
+    height: 14px;
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .text-muted {
+    color: #6c757d !important; /* Bootstrap text-muted */
+  }
+  .scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .scroll-item {
+    flex: 0 0 auto;
+    width: 80%; /* Adjust card width */
+    max-width: 300px;
+    scroll-snap-align: center;
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for smooth scrolling */
+  }
+  

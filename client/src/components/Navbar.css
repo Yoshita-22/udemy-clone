@@ -1,0 +1,15 @@
+.navbar-bg{
+    background-color: aliceblue;
+}
+.signup{
+    background-color:blueviolet;
+    color:#ffffff;
+}
+.login{
+    border-color: blueviolet;
+    color:blueviolet;
+    background-color: transparent;
+}
+.link{
+    color:black;
+}
