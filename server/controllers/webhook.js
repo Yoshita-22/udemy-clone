@@ -53,8 +53,8 @@ export const clerkWebhooks = async(req,res)=>{
 
 const stripeInstance = new Stripe(process.env.STRIPE_WEBHOOK_SECRETKEY)
 
-export const stripeWebhooks = async(req,res)=>{
-    app.post('/webhook', express.raw({type: 'application/json'}), async(request, response) => {
+export const stripeWebhooks = async(request,response)=>{
+    
   const sig = request.headers['stripe-signature'];
 
   let event;
@@ -74,11 +74,12 @@ export const stripeWebhooks = async(req,res)=>{
         const session  = await stripeInstance.checkout.sessions.list({
             payment_intent : paymentIntentId
         })
+        console.log("session",session);
         const {purchaseId} = session.data[0].metadata;
         const purchaseData = await purchase.findById(purchaseId);
         const userData = await User.findById(purchaseData.userId);
-        const courseData = await Course.findById(purchaseData.courseId);
-
+        const courseData = await course.findById(purchaseData.courseId);
+        
         courseData.enrolledStudents.push(userData._id);
         await courseData.save();
 
@@ -88,7 +89,7 @@ export const stripeWebhooks = async(req,res)=>{
 
         purchaseData.status = "completed";
         await purchaseData.save();
-
+       
         break;
     }
       
@@ -114,6 +115,5 @@ export const stripeWebhooks = async(req,res)=>{
 
   // Return a response to acknowledge receipt of the event
   response.json({received: true});
-});
 
 }
