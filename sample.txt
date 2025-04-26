@@ -1,0 +1,56 @@
+{
+  "courseTitle": "Full Stack Web Development Bootcamp",
+  "courseDescription": "Master front-end and back-end development with hands-on projects.",
+  "coursePrice": 4999,
+  "discount": 20,
+  "isPublished": true,
+  "educator": "6620f65c92b3c35e2b19c414",
+  "courseContent": [
+    {
+      "chapter_id": "ch1",
+      "chapterTitle": "Introduction to Web Development",
+      "chapterOrder": 1,
+      "chapterContent": [
+        {
+          "lectureId": "lec1",
+          "lectureTitle": "What is Web Development?",
+          "lectureDuration": 10,
+          "lectureUrl": "https://youtu.be/samplelink5"
+        },
+        {
+          "lectureId": "lec2",
+          "lectureTitle": "How the Web Works",
+          "lectureDuration": 15,
+          "lectureUrl": "https://youtu.be/samplelink5"
+        }
+      ]
+    },
+    {
+      "chapter_id": "ch2",
+      "chapterTitle": "HTML Basics",
+      "chapterOrder": 2,
+      "chapterContent": [
+        {
+          "lectureId": "lec3",
+          "lectureTitle": "Intro to HTML",
+          "lectureDuration": 20,
+          "lectureUrl": "https://youtu.be/samplelink5"
+        }
+      ]
+    }
+  ],
+  "courseRatings": [
+    {
+      "userId": "661f9df3cd210a33f87f7b1c",
+      "ratings": 5
+    },
+    {
+      "userId": "661f9df3cd210a33f87f7b1d",
+      "ratings": 4
+    }
+  ],
+  "enrolledStudents": [
+    "661f9df3cd210a33f87f7b1e",
+    "661f9df3cd210a33f87f7b1f"
+  ]
+}

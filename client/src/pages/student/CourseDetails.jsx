@@ -76,7 +76,7 @@ const CourseDetails = () => {
         </div>
         
         <p className=' mb-0'>Course by
-          <span className='text-blue-600'> Greatstack</span></p>
+          <span className='text-blue-600'> Udemy</span></p>
         
         <div className='pt-8 text-gray-800'>
             <h2 className='text-xl font-semibold'>Course Structure</h2>
