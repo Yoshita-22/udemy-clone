@@ -36,9 +36,6 @@ export const purchaseCourse = async(req,res)=>{
     const {origin} = req.headers;
     const userData = await User.findById(userId);
     const courseData = await course.findById(courseId);
-    console.log(userId);
-    console.log(userData);
-    console.log(courseData);
     if(!userData || !courseData){
         res.json({success:false,message:"Data Not Found"});
     }

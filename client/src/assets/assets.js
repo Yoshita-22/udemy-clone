@@ -89,7 +89,8 @@ export const assets = {
     profile_img3,
     play_icon,
     blue_tick_icon,
-    lesson_icon
+    lesson_icon,
+    
 }
 
 export const dummyEducatorData = {

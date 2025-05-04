@@ -3,20 +3,31 @@ import { Navbar, Nav, Container, Button, Form, FormControl } from 'react-bootstr
 import { FaUserCircle, FaShoppingCart } from 'react-icons/fa';
 import { assets } from '../assets/assets';
 import { useClerk,UserButton,useUser } from '@clerk/clerk-react';
-import { IoMdHeartEmpty } from "react-icons/io";
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './student/SearchBar';
+
 function HomeNavbar() {
   const navigate = useNavigate();
   const {openSignIn} = useClerk();
+  const { isSignedIn } = useUser(); // Clerk hook
+
+  const handleEducatorClick = () => {
+    if (isSignedIn) {
+      navigate("/educator");
+    } else {
+      // Optionally redirect to sign-in page or show an alert
+      navigate("/sign-in"); // or use Clerk's modal: openSignIn()
+    }
+  };
   const {user} = useUser();
+  
+
   return (
     <Navbar expand="lg" bg="light" variant="light" className="py-3 shadow-sm border-bottom">
       <Container fluid>
 
         {/* Brand Logo */}
-        <Navbar.Brand href="#" className="fw-bold fs-4 text-dark"><img src = {`${assets.logo_udemy}`}/></Navbar.Brand>
+        <Navbar.Brand href="#" className="fw-bold fs-4 text-dark"> <img src={assets.logo} alt="logo" className="w-28 lg:w-32" /></Navbar.Brand>
 
         {/* Toggle for Mobile View */}
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -36,7 +47,7 @@ function HomeNavbar() {
               <Button
                 variant="outline-dark"
                 className="m-2 fw-semibold"
-                style={{ borderWidth: '1.5px' }}
+                style={{ borderWidth: '1.5px' }} onClick = {()=>navigate("/educator")}
               >
                 Instructor
               </Button>
@@ -46,7 +57,7 @@ function HomeNavbar() {
               <Button
                 variant="outline-dark"
                 className="m-2 fw-semibold"
-                style={{ borderWidth: '1.5px' }} 
+                style={{ borderWidth: '1.5px' }}  onClick = {()=>navigate("/")}
               >
                 Teach On Udemy
               </Button>
@@ -62,9 +73,7 @@ function HomeNavbar() {
                 >
                   My Learning
                 </Button>
-              <Nav.Link href="#cart" className="text-dark m-1">
-                <IoMdHeartEmpty size = {22}/>
-              </Nav.Link>
+              
           </Nav>
 
             </>)}
@@ -72,9 +81,7 @@ function HomeNavbar() {
           
           {/* Right Section - Icons and Buttons */}
           <Nav className="align-items-center">
-            <Nav.Link href="#cart" className="text-dark m-1">
-            <FaShoppingCart size={22} />
-            </Nav.Link>
+           
             {user ? (
         <UserButton />
           ) : (
@@ -93,7 +100,6 @@ function HomeNavbar() {
     </Button>
   </>
 )}
-
           </Nav>
 
         </Navbar.Collapse>

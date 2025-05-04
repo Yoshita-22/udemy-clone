@@ -6,9 +6,6 @@ import {assets}from '../../assets/assets'
 import humanizeDuration from 'humanize-duration'
 import Footer from '../../components/student/Footer'
 import YouTube from'react-youtube'
-import { IoMdHeartEmpty } from "react-icons/io";
-import { FaHeart } from "react-icons/fa6";
-import { useCart } from '../../context/CartContext'
 const CourseDetails = () => {
   const {id}=useParams()
  
@@ -22,12 +19,7 @@ const CourseDetails = () => {
 
   const {allCourses,calculateRating,calculateNoOfLectures,calculateTotalDuration,
     calculateChapterTime,FavouriteItems,setFavouriteItems}=useContext(AppContext);
-  const {CartItems,setCartItems,addToCart,isInCart} = useCart();
-  
-    useEffect(() => {
-      console.log(FavouriteItems);
-      console.log("Cart Items are",CartItems);
-  }, [FavouriteItems,CartItems]);
+ 
     const fetchCourseData=async ()=>{
     const findCourse=allCourses.find(course=>course._id===id)
     setCourseData(findCourse);
@@ -178,21 +170,8 @@ const CourseDetails = () => {
               </div>
 
             </div>
-            <div className='d-flex'>
-            <button className='md:mt-6 mt-4 w-80 py-3 rounded border-2 border-violet-700  text-violet-600 font-bold me-3
-             ' onClick={()=>{
-                addToCart(courseData)
-                navigate("./cart")   }} >{isInCart(courseData)?'Go To Cart':'Add To Cart'}</button><div className='w-14 h-14 flex items-center justify-center md:mt-6 mt-4 rounded-lg border-1 border-violet-700 shadow-md cursor-pointer' 
-             onClick={() => {
-              setFavouriteItems(prev =>
-                  prev.includes(courseData) 
-                      ? prev.filter(item => item !== courseData) // Remove item (returns new array)
-                      : [...prev, courseData]                   // Add item (returns new array)
-              );
-          }}
-              >{FavouriteItems.includes(courseData)?(<FaHeart className='fill-violet-700 w-7 h-7'/> 
-          ):(<IoMdHeartEmpty className='fill-violet-700 w-7 h-7'/>)}</div>
-            </div>
+           
+           
             <button className='md:mt-6 mt-4 w-full py-3 rounded bg-violet-700 font-bold
             text-white'>
               {isAlreadyEnrolled ?'Already Enrolled':'Enroll now'}</button>

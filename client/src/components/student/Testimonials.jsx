@@ -20,7 +20,7 @@ const Testimonials = () => {
   };
   
   return (
-    <div className="text-center my-4">
+    <div className="text-center my-4 mt-5">
       <h3 className="fw-semibold mb-2">Testimonials</h3>
       <p className="mb-4">
         Hear from our learners as they share their journeys of transformation, success,

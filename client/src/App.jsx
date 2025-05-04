@@ -1,4 +1,4 @@
-import { Routes,Route } from "react-router-dom";
+import { Routes,Route, useMatch } from "react-router-dom";
 import CoursesList from "./pages/student/CoursesList"
 import Loading from "./components/student/Loading";
 import MyEnrollments from "./pages/student/MyEnrollments";
@@ -14,9 +14,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeNavbar from "./components/HomeNavbar";
 
 function App(){
+  const isEducatorRoute = useMatch("/educator/*")
   return(
+
    <div>
-    <HomeNavbar/>
+    {!isEducatorRoute && <HomeNavbar/>}
     <Routes>
       
       <Route path = "/" element = {<Home/>}/>
@@ -27,10 +29,10 @@ function App(){
       <Route path = "/player/:courseId" element = {<Player/>}/>
       <Route path = "/loading/:path" element = {<Loading/>}/>
       <Route path = "/educator" element = {<EducatorPage/>}>
-        <Route path = "add-course" element =  {<AddCourse/>}/>
-        <Route path = "edu-dashboard" element =  {<EducatorDashBoard/>}/>
-        <Route path = "std-enrollemnts" element =  {<Enrollments/>}/>
-        <Route path = "mycourses" element =  {<MyCourses/>}/>
+        <Route path = "/educator" element =  {<EducatorDashBoard/>}/>
+        <Route path = "add-course" element =  {<AddCourse/>}/>  
+        <Route path = "student-enrolled" element =  {<Enrollments/>}/>
+        <Route path = "my-courses" element =  {<MyCourses/>}/>
       </Route>
     </Routes>
    </div>

@@ -7,7 +7,7 @@ const CoursesSection = () => {
   const { allCourses } = useContext(AppContext);
 
   return (
-    <div className="py-5 container ">
+    <div className="py-5 container mt-4">
       <div>
       <h2 className="fs-2 fw-medium text-dark text-center">Learn from the best</h2>
       <p className="text-muted mt-3 text-center">

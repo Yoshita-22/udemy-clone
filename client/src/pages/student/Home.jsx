@@ -1,18 +1,17 @@
 import React from 'react'
-import HomeNavbar from '../../components/HomeNavbar'
-import { Carousel } from 'bootstrap'
 import CourseCarousels from '../../components/CourseCarousels'
 import Testimonials from '../../components/student/Testimonials'
 import CoursesSection from '../../components/student/CoursesSection'
-
+import Companies from '../../components/student/Companies'
+import Footer from '../../components/student/Footer'
 const Home = () => {
   return (
-    <div>
-      
-      
+    <div>  
       <CourseCarousels/>
-      <Testimonials/>
+      <Companies/>
       <CoursesSection/>
+      <Testimonials/>
+      <Footer/>
     </div>
   )
 }
