@@ -29,10 +29,7 @@ app.post("/clerk",express.json(),clerkWebhooks)
 app.use("/api/educator/",express.json(),EducatorRouter);
 app.use("/api/course",express.json(),courseRouter);
 app.use("/api/user",express.json(),UserRouter);
-app.post("/stripe", express.raw({ type: "application/json" }), (req, res) => {
-    console.log("🔥 Incoming headers:", req.headers);
-    res.sendStatus(200);
-  });
+app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
   
 
 const PORT = process.env.PORT||5000;

@@ -47,7 +47,7 @@ const MyEnrollments = () => {
                 <div>
                 <p>{course.courseTitle}</p>
                 
-                <Line percent={progressPercentage} strokeWidth={2} strokeColor={progressPercentage<50 ? "#ff0000":"green"}/>
+                <Line percent={progressPercentage} strokeWidth={2} strokeColor={progressPercentage<30 ? "#ff0000":"green"}/>
                 </div>
               </div>
             </td>
