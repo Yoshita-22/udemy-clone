@@ -79,10 +79,10 @@ export const stripeWebhooks = async (request, response) => {
         const session = await stripeInstance.checkout.sessions.list({
           payment_intent: paymentIntentId,
         });
-
-
+        if (!session.data.length) {
+          return response.status(404).send("Checkout session not found");
+        }
         const { purchaseId } = session.data[0].metadata;
-        console.log("Purchase ID from metadata:", purchaseId);
 
         const purchaseData = await purchase.findById(purchaseId);
 
@@ -91,17 +91,19 @@ export const stripeWebhooks = async (request, response) => {
         }
 
         const userData = await User.findById(purchaseData.userId);
+        const courseData = await course.findById(purchaseData.courseId);
         if (!userData) {  
           return response.status(404).send("User not found");
         }else{
-        
           userData.enrolledCourses.push(courseData._id);
+          await userData.save()
         }
-
-        const courseData = await course.findById(purchaseData.courseId);
         if (!courseData) {
           return response.status(404).send("Course not found");
-        }else{courseData.enrolledStudents.push(userData._id);}
+        }else{
+          courseData.enrolledStudents.push(userData._id);
+          await courseData.save();
+          }
 
 
         purchaseData.status = "completed";

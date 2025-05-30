@@ -36,8 +36,7 @@ export const purchaseCourse = async(req,res)=>{
     const {origin} = req.headers;
     const userData = await User.findById(userId);
     const courseData = await course.findById(courseId);
-    console.log(courseData);
-    console.log(userData);
+
     if(!userData || !courseData){
         return res.json({success:false,message:"Data Not Found"});
     }
@@ -50,8 +49,7 @@ export const purchaseCourse = async(req,res)=>{
         const newPurchase  = await purchase.create(purchaseData);
         await newPurchase.save();
         const purchaseCoursess = await purchase.findById(newPurchase._id);
-        console.log(purchaseCoursess);
-    
+
     //initialise stripe payment gateway
     const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY)
 
