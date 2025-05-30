@@ -51,7 +51,6 @@ export const clerkWebhooks = async(req,res)=>{
     }
 }
 const stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export const stripeWebhooks = async (request, response) => {
   console.log("hi");
   const sig = request.headers['stripe-signature'];
@@ -66,10 +65,16 @@ export const stripeWebhooks = async (request, response) => {
     );
   } catch (err) {
     console.error("⚠️ Webhook signature verification failed:", err.message);
-    response.status(400).send(`Webhook Error: ${err.message}`); // ✅ return here
+    return response.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  if (!event || !event.type) {
+    console.error("❌ Invalid event object received:", event);
+    return response.status(400).send("Invalid webhook event");
+  }
+  
   console.log("✅ Webhook Event Received:", event.type);
+  
 
   try {
     switch (event.type) {
@@ -86,17 +91,28 @@ export const stripeWebhooks = async (request, response) => {
         console.log("Session fetched:", session);
 
         const { purchaseId } = session.data[0].metadata;
+        const check = session.data? true:false;
+        console.log("checking ",check);
         console.log("Purchase ID from metadata:", purchaseId);
 
         const purchaseData = await purchase.findById(purchaseId);
+        if (!purchaseData) {
+          console.error("❌ Purchase data not found");
+          return response.status(404).send("Purchase not found");
+        }
+
         const userData = await User.findById(purchaseData.userId);
+        if (!userData) {
+          console.error("❌ User data not found");
+          return response.status(404).send("User not found");
+        }
+
         const courseData = await course.findById(purchaseData.courseId);
+        if (!courseData) {
+          console.error("❌ Course data not found");
+          return response.status(404).send("Course not found");
+        }
 
-        courseData.enrolledStudents.push(userData._id);
-        await courseData.save();
-
-        userData.enrolledCourses.push(courseData._id);
-        await userData.save();
 
         purchaseData.status = "completed";
         await purchaseData.save();
@@ -115,6 +131,7 @@ export const stripeWebhooks = async (request, response) => {
         });
 
         const { purchaseId } = session.data[0].metadata;
+        
         const purchaseData = await purchase.findById(purchaseId);
         purchaseData.status = "failed";
         await purchaseData.save();
@@ -123,12 +140,13 @@ export const stripeWebhooks = async (request, response) => {
       }
 
       default:
-        console.log(`Unhandled event type: ${event.type}`);
+        console.log("Unhandled event type");
     }
+
+    // ✅ Respond to Stripe
+    return response.status(200).send({ received: true });
   } catch (error) {
     console.error("⚠️ Error handling webhook event:", error);
-    response.status(500).send(`Webhook Handler Error: ${error.message}`); // ✅ return here too
+    response.status(500).send(`Webhook Handler Error: ${error.message}`);
   }
-
-
 };
