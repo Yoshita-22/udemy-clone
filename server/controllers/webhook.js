@@ -96,6 +96,7 @@ export const stripeWebhooks = async (request, response) => {
         console.log("Purchase ID from metadata:", purchaseId);
 
         const purchaseData = await purchase.findById(purchaseId);
+        console.log(purchaseData);
         if (!purchaseData) {
           console.error("❌ Purchase data not found");
           return response.status(404).send("Purchase not found");
@@ -105,13 +106,16 @@ export const stripeWebhooks = async (request, response) => {
         if (!userData) {
           console.error("❌ User data not found");
           return response.status(404).send("User not found");
+        }else{
+        
+          userData.enrolledCourses.push(userData._id);
         }
 
         const courseData = await course.findById(purchaseData.courseId);
         if (!courseData) {
           console.error("❌ Course data not found");
           return response.status(404).send("Course not found");
-        }
+        }else{courseData.enrolledStudents.push(courseData._id);}
 
 
         purchaseData.status = "completed";
